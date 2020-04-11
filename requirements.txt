@@ -1,0 +1,9 @@
+flask
+flask_cors
+pandas
+numpy
+scikit-learn
+gunicorn
+itsdangerous
+Jinja2
+MarkupSafe
