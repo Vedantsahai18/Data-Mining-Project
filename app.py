@@ -12,7 +12,6 @@ import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.externals import joblib
 
-save_path = '/uploads/'
 exts = ['csv', 'json']
 
 app = Flask(__name__)
@@ -29,37 +28,23 @@ cors = CORS(app, resources={
 
 @app.route('/', methods=['GET'])
 def test():
-    return "Hello"
+    return render_template('upload.html')
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST':
         data = request.files['data']
-        #serivce_name=request.form['service']
+        #service_name=request.form['service']
         #service_func = services[service_name]
         ext = data.filename.split('.')[1]
         if(ext in exts):
             data.save('uploads/' + data.filename)
             #file_path='uploads/'+data.filename
             #output_data = service_func(file_path)
-            return 'File saved to uploads directory@'
+            #return output_data
         else:
             return 'File type not accepted!'
     return render_template('upload.html')
-
-
-@app.route('/<string:service_name>', methods=['GET','POST'])
-def service(service_name):
-    try:
-        service_func = services[service_name]
-    except:
-        # service does not exist
-        return None, 401
-    
-    data = request.get_json()
-    output_data = service_func(data)
-    return jsonify(output_data)
-    #return render_template('index.html',output=output_data)
 
 # @app.route('/predict', methods=['GET','POST'])
 # def predict():
