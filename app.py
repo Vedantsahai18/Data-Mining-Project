@@ -1,10 +1,10 @@
 
 from modules.kmeans import kmeans
-from modules.gauss import gauss
+#from modules.gauss import gauss
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import os.path
-from flask_bootstrap import Bootstrap 
+#from flask_bootstrap import Bootstrap 
 import pandas as pd 
 import numpy as np 
 
@@ -13,13 +13,13 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.externals import joblib
 
 save_path = '/uploads/'
-exts = ['csv', 'json', 'yaml']
+exts = ['csv', 'json']
 
 app = Flask(__name__)
 services = {
 
-    'kmeans': kmeans,
-    'gauss': gauss,
+    'kmeans': kmeans
+    #'gauss': gauss,
 
 }
 
@@ -35,9 +35,13 @@ def test():
 def upload():
     if request.method == 'POST':
         data = request.files['data']
+        #serivce_name=request.form['service']
+        #service_func = services[service_name]
         ext = data.filename.split('.')[1]
         if(ext in exts):
             data.save('uploads/' + data.filename)
+            #file_path='uploads/'+data.filename
+            #output_data = service_func(file_path)
             return 'File saved to uploads directory@'
         else:
             return 'File type not accepted!'
