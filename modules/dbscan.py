@@ -13,7 +13,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 
 def preprocessor(df):
-    df = df.as_matrix().astype('float32',copy=False)
+    df = df.astype('float32',copy=False)
     #Small preprocessing Pipeline
     stscaler = StandardScaler().fit(df)
     df = stscaler.transform(df)
@@ -56,8 +56,6 @@ def train(dataset,eps):
     plt.savefig(labelled_data)
     # show the plot
 
-    data['label'] = model.labels_
-    data.to_csv('models//dbscan_labels.csv')
-    return data,unlabelled_data,labelled_data
+    return ('Model Graphically Represented') 
     
 

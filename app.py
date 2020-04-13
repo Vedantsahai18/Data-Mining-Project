@@ -24,25 +24,29 @@ def algo():
     if request.method == 'POST':
         filename = request.form['filename']
         if request.form['algorithm'] == "DB-SCAN":
-            print(('uploads/'+str( filename)))
-            print(dbt(('uploads/'+str( filename)),0.30) )    
-            return render_template('result.html', image1 = 'dbscan.png',image2='dbscan_unlabelled_data.png')
+            out_datat=dbt(('uploads/'+str( filename)),0.30) 
+            print(out_datat)   
+            return render_template('result.html', image1 = '../images/dbscan.png', image2='../images/dbscan_unlabelled.png')
         
-        # elif request.form['algorithm'] == "birch":
-        #     bt(('uploads/'+str(filename)),2)  
-        #     return render_template('result.html', image1 = 'birch.png', image2 = 'birch_unlabelled.png')
+        elif request.form['algorithm'] == "birch":
+            out_datat=bt(('uploads/'+str(filename)),2)  
+            print(out_datat)   
+            return render_template('result.html', image1 = 'birch.png', image2 = 'birch_unlabelled.png')
         
-        # elif request.form['algorithm'] == "optics":
-        #     opt(('uploads/'+str(filename)),0.80)  
-        #     return render_template('result.html', image1 = 'optics.png', image2 = 'optics_unlabelled.png')
+        elif request.form['algorithm'] == "optics":
+            out_datat=opt(('uploads/'+str(filename)),0.80) 
+            print(out_datat)    
+            return render_template('result.html', image1 = 'optics.png', image2 = 'optics_unlabelled.png')
         
-        # elif request.form['algorithm'] == "affprop":
-        #     apt(('uploads/'+str(filename)))
-        #     return render_template('result.html', image1 = 'affinity_propagation.png', image2 = 'affinity_propagation_unlabelled.png')
+        elif request.form['algorithm'] == "affprop":
+            out_datat=apt(('uploads/'+str(filename)))
+            print(out_datat)   
+            return render_template('result.html', image1 = 'affinity_propagation.png', image2 = 'affinity_propagation_unlabelled.png')
         
-        # elif request.form['algorithm'] == "specclust":
-        #     sct(('uploads/'+str(filename)),2)  
-        #     return render_template('result.html', image1 = 'spectral_clustering.png', image2 = 'spectral_clustering_unlabelled.png')    
+        elif request.form['algorithm'] == "specclust":
+            out_datat=sct(('uploads/'+str(filename)),2)  
+            print(out_datat)   
+            return render_template('result.html', image1 = 'spectral_clustering.png', image2 = 'spectral_clustering_unlabelled.png')    
         
         return 'Nothing Selected'
         
@@ -62,7 +66,7 @@ def upload_file():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            filename = (file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return render_template('algo.html', filename = filename)
     return render_template('upload.html')
