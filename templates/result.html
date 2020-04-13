@@ -161,12 +161,11 @@
     </header>
   </div>
 
-  <div col-xs-12>
-    <div col-xs-12 col-md-2 style="margin-bottom: 20px;">
-      <img src="{{ url_for('static', filename= image1) }}" alt="{{image1}}" /></div>
-    <div col-xs-12 col-md-2>
-      <img src="{{ url_for('static', filename= image2) }}" alt="{{image2}}" /></div>
-  </div>
+
+  <img src="{{ url_for('static', filename= image1) }}" alt="{{image1}}" />
+
+  <img src="{{ url_for('static', filename= image2) }}" alt="{{image2}}" />
+
 </body>
 
 </html>
