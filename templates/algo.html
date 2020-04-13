@@ -1,49 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
 
-    <title>Upload</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
-    />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
 
-    <link
-      href="{{ url_for('static', filename='cover.css') }}"
-      rel="stylesheet"
-    />
+  <title>Algo</title>
 
-    </style>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
 
-  </head>
+  <link href="{{ url_for('static', filename='cover.css') }}" rel="stylesheet" />
 
-  <body class="text-center">
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
 
-        <form action="/algo" method="post">
-            <h2>Enter the details and run to see the results</h2>
-            <input hidden type="text" name='filename' value={{filename}}></input>
-            <input type="radio" id="DB-SCAN" name="algorithm" value="DB-SCAN">
-            <label for="DB-SCAN">DB-SCAN</label><br>
-            <input type="radio" id="birch" name="algorithm" value="birch">
-            <label for="K-means">Birch</label><br>
-            <input type="radio" id="optics" name="algorithm" value="optics">
-            <label for="K-means">Optics</label><br>
-            <input type="radio" id="affprop" name="algorithm" value="affprop">
-            <label for="K-means">Affinity Propogation</label><br>
-            <input type="radio" id="specclust" name="algorithm" value="specclust">
-            <label for="K-means">Spectral Clustering</label><br>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
-  </body>
+
+  <style>
+    /* Navbar */
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+
+    body {
+      font-family: "Helvetica Neue", sans-serif;
+      font-weight: lighter;
+    }
+
+    header {
+      width: 100%;
+      height: 100px;
+      /* background:
+  url(https://wallpaper.wiki/wp-content/uploads/2017/05/wallpaper.wiki-Beautiful-Full-HD-Wallpaper-Download-Free-PIC-WPE0010098.jpg)
+  no-repeat 50% 50%; */
+
+      background-color: #000;
+      background-size: cover;
+    }
+
+    .content {
+      width: 94%;
+      margin: 4em auto;
+      font-size: 20px;
+      line-height: 30px;
+      text-align: justify;
+    }
+
+    .logo {
+      line-height: 60px;
+      position: fixed;
+      float: left;
+      margin: 16px 46px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 20px;
+      letter-spacing: 2px;
+    }
+
+    nav {
+      position: fixed;
+      width: 100%;
+      line-height: 60px;
+    }
+
+    nav ul {
+      line-height: 60px;
+      list-style: none;
+      background: rgba(0, 0, 0, 0);
+      overflow: hidden;
+      color: #fff;
+      padding: 0;
+      text-align: right;
+      margin: 0;
+      padding-right: 40px;
+      transition: 1s;
+    }
+
+    nav.black ul {
+      background: #000;
+    }
+
+    nav ul li {
+      display: inline-block;
+      padding: 16px 40px;
+      ;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .menu-icon {
+      line-height: 60px;
+      width: 100%;
+      background: #000;
+      text-align: right;
+      box-sizing: border-box;
+      padding: 15px 24px;
+      cursor: pointer;
+      color: #fff;
+      display: none;
+    }
+
+    @media(max-width: 786px) {
+
+      .logo {
+        position: fixed;
+        top: 0;
+        margin-top: 16px;
+      }
+
+      nav ul {
+        max-height: 0px;
+        background: #000;
+      }
+
+      nav.black ul {
+        background: #000;
+      }
+
+      .showing {
+        max-height: 34em;
+      }
+
+      nav ul li {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 24px;
+        text-align: center;
+      }
+
+      .menu-icon {
+        display: block;
+      }
+    }
+
+    .tcolor {
+      color: #fff;
+    }
+
+
+
+    /* Submit Button */
+
+
+    .myButton {
+      -moz-box-shadow: 3px 4px 0px 0px #1b484f;
+      -webkit-box-shadow: 3px 4px 0px 0px #1b484f;
+      box-shadow: 3px 4px 0px 0px #1b484f;
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0a7ca6), color-stop(1, #137a8a));
+      background: -moz-linear-gradient(top, #0a7ca6 5%, #137a8a 100%);
+      background: -webkit-linear-gradient(top, #0a7ca6 5%, #137a8a 100%);
+      background: -o-linear-gradient(top, #0a7ca6 5%, #137a8a 100%);
+      background: -ms-linear-gradient(top, #0a7ca6 5%, #137a8a 100%);
+      background: linear-gradient(to bottom, #0a7ca6 5%, #137a8a 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0a7ca6', endColorstr='#137a8a', GradientType=0);
+      background-color: #0a7ca6;
+      -webkit-border-radius: 18px;
+      -moz-border-radius: 18px;
+      border-radius: 18px;
+      border: 1px solid #316282;
+      display: inline-block;
+      cursor: pointer;
+      color: #ffffff;
+      font-family: Arial;
+      font-size: 17px;
+      padding: 7px 25px;
+      text-decoration: none;
+      text-shadow: 0px 1px 0px #396c7d;
+    }
+
+    .myButton:hover {
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #137a8a), color-stop(1, #0a7ca6));
+      background: -moz-linear-gradient(top, #137a8a 5%, #0a7ca6 100%);
+      background: -webkit-linear-gradient(top, #137a8a 5%, #0a7ca6 100%);
+      background: -o-linear-gradient(top, #137a8a 5%, #0a7ca6 100%);
+      background: -ms-linear-gradient(top, #137a8a 5%, #0a7ca6 100%);
+      background: linear-gradient(to bottom, #137a8a 5%, #0a7ca6 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#137a8a', endColorstr='#0a7ca6', GradientType=0);
+      background-color: #137a8a;
+    }
+
+    .myButton:active {
+      position: relative;
+      top: 1px;
+    }
+
+    /* Radio buttons */
+    input {
+      display: table-cell;
+      vertical-align: middle
+    }
+  </style>
+
+</head>
+
+<body class="text-center" style="background-color: #000;">
+
+
+  <!-- navbar -->
+  <div class="wrapper">
+    <header>
+      <nav>
+        <div class="menu-icon">
+          <i class="fa fa-bars fa-2x"></i>
+        </div>
+        <div class="logo">
+          DWM Mini Project
+        </div>
+        <div class="menu">
+          <!-- <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul> -->
+        </div>
+      </nav>
+    </header>
+  </div>
+
+  <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+
+    <form class="tcolor" action="/algo" method="post">
+      <h2>Enter the details and submit to see the results</h2>
+
+      <div>
+        <input hidden type="text" name='filename' value={{filename}}></input>
+        <input style="margin-left: -70px;" type="radio" id="DB-SCAN" name="algorithm" value="DB-SCAN">
+        <label for="DB-SCAN">DB-SCAN</label><br>
+        <input style="margin-left: -105px;" type="radio" id="birch" name="algorithm" value="birch">
+        <label for="K-means">Birch</label><br>
+        <input style="margin-left: -95px;" type="radio" id="optics" name="algorithm" value="optics">
+        <label for="K-means">Optics</label><br>
+        <input type="radio" id="affprop" name="algorithm" value="affprop">
+        <label for="K-means">Affinity Propogation</label><br>
+        <input type="radio" id="specclust" name="algorithm" value="specclust">
+        <label for="K-means">Spectral Clustering</label><br>
+      </div>
+      <div style="margin-top: 10px; margin-left: -50px;">
+        <button class="myButton" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // navbar script
+
+    $(document).ready(function () {
+      $(".menu-icon").on("click", function () {
+        $("nav ul").toggleClass("showing");
+      });
+    });
+
+    // Scrolling Effect
+
+    $(window).on("scroll", function () {
+      if ($(window).scrollTop()) {
+        $('nav').addClass('black');
+      } else {
+        $('nav').removeClass('black');
+      }
+    })
+  </script>
+
+</body>
+
 </html>
