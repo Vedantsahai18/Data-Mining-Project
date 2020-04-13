@@ -21,7 +21,7 @@ def preprocessor(df):
 def train(dataset,n_clusters):
     data = pd.read_csv(dataset)
     data.fillna(method = 'ffill',inplace=True)
-    IMAGE_FOLDER = 'images//'
+    IMAGE_FOLDER = 'static//'
     MODEL_FOLDER = 'models//'
 
     header = data.columns.values

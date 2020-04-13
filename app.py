@@ -26,7 +26,7 @@ def algo():
         if request.form['algorithm'] == "DB-SCAN":
             out_datat=dbt(('uploads/'+str( filename)),0.30) 
             print(out_datat)   
-            return render_template('result.html', image1 = '../images/dbscan.png', image2='../images/dbscan_unlabelled.png')
+            return render_template('result.html', image1 = 'dbscan.png', image2='dbscan_unlabelled.png')
         
         elif request.form['algorithm'] == "birch":
             out_datat=bt(('uploads/'+str(filename)),2)  
@@ -41,7 +41,7 @@ def algo():
         elif request.form['algorithm'] == "affprop":
             out_datat=apt(('uploads/'+str(filename)))
             print(out_datat)   
-            return render_template('result.html', image1 = 'affinity_propagation.png', image2 = 'affinity_propagation_unlabelled.png')
+            return render_template('result.html', image1 = 'affinity_propagation.png', image2 = 'ffinity_propagation_unlabelled.png')
         
         elif request.form['algorithm'] == "specclust":
             out_datat=sct(('uploads/'+str(filename)),2)  
