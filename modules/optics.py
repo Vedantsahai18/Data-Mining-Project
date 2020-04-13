@@ -5,8 +5,7 @@ import numpy as np
 import pickle
 
 from sklearn.datasets import make_classification
-from sklearn.cluster import DBSCAN
-from sklearn.cluster import DBSCAN
+from sklearn.cluster import OPTICS
 from sklearn.preprocessing import StandardScaler
 
 import pandas as pd
@@ -30,16 +29,12 @@ def train(dataset,eps):
     
 
     plt.scatter(data[header[0]],data[header[1]])
-    unlabelled_data = IMAGE_FOLDER+'dbsacn_unlabelled.png'
+    unlabelled_data = IMAGE_FOLDER+'optics_unlabelled.png'
     plt.savefig(unlabelled_data)
 
     df = preprocessor(data)
 
-    model = DBSCAN(eps=eps,min_samples=9)
-
-    # filename = MODEL_FOLDER  +'dbscan.sav'
-
-    # pickle.dump(model, open(filename, 'wb'))
+    model = OPTICS(eps=eps,min_samples=9)
 
     yhat = model.fit_predict(df)
     # retrieve unique clusters
@@ -52,17 +47,17 @@ def train(dataset,eps):
         row_ix = where(yhat == cluster)
         # create scatter of these samples
         plt.scatter(df[row_ix, 0], df[row_ix, 1])
-    labelled_data = IMAGE_FOLDER+'dbscan'+'.png'
+    labelled_data = IMAGE_FOLDER+'optics.png'
     plt.savefig(labelled_data)
     # show the plot
 
     data['label'] = model.labels_
-    data.to_csv('models//dbscan_labels.csv')
+    data.to_csv('models//optics_labels.csv')
     return data,unlabelled_data,labelled_data
     
 
 DATA_FOLDER = '..//uploads'
-data,unlabelled,labelled = train(DATA_FOLDER+'//shady_customer_data.csv',eps=0.30)
+data,unlabelled,labelled = train(DATA_FOLDER+'//shady_customer_data.csv',eps=0.8)
 
 print('\n')
 # print(data)
