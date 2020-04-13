@@ -30,14 +30,19 @@
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
 
         <form action="/algo" method="post">
-            <input type="text" name='filename' value={{filename}}></input>
             <h2>Enter the details and run to see the results</h2>
+            <input hidden type="text" name='filename' value={{filename}}></input>
             <input type="radio" id="DB-SCAN" name="algorithm" value="DB-SCAN">
             <label for="DB-SCAN">DB-SCAN</label><br>
-            <input type="radio" id="K-means" name="algorithm" value="kmean">
-            <label for="K-means">K-means</label><br>
+            <input type="radio" id="birch" name="algorithm" value="birch">
+            <label for="K-means">Birch</label><br>
+            <input type="radio" id="optics" name="algorithm" value="optics">
+            <label for="K-means">Optics</label><br>
+            <input type="radio" id="affprop" name="algorithm" value="affprop">
+            <label for="K-means">Affinity Propogation</label><br>
+            <input type="radio" id="specclust" name="algorithm" value="specclust">
+            <label for="K-means">Spectral Clustering</label><br>
             <button type="submit">Submit</button>
-            <p> DBSCAN is not working</p>
         </form>
     </div>
   </body>

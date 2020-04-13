@@ -20,7 +20,7 @@ def preprocessor(df):
 def train(dataset):
     data = pd.read_csv(dataset)
     data.fillna(method = 'ffill',inplace=True)
-    IMAGE_FOLDER = '..//images//'
+    IMAGE_FOLDER = 'images//'
     MODEL_FOLDER = 'models//'
 
     header = data.columns.values
@@ -57,11 +57,5 @@ def train(dataset):
 
     data['label'] = model.labels_
     data.to_csv('models//affinity_propagation_labels.csv')
-    return data,unlabelled_data,labelled_data
-    
+    return data,unlabelled_data,labelled_data    
 
-DATA_FOLDER = '..//uploads'
-data,unlabelled,labelled = train(DATA_FOLDER+'//shady_customer_data.csv')
-
-print('\n')
-print(data)

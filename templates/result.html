@@ -35,27 +35,12 @@ div {
     </style>
   </head>
   <body>
-    <button onclick="myFunction('Graph')">Display Graph</button>
+    <button >Display Graph</button>
     
     <div id="Graph">
-    <img src="{{ url_for('static', filename= image1) }}" alt="{{image1}}" />
-    <img src="{{ url_for('static', filename= image2) }}" alt="{{image2}}" />
-    </div>
-    <button onclick="myFunction('Summary')">Display Summary</button>
-    <div id="Summary">
-    <pre style="font-size:50px">
-      {{ text }}
-    </pre>
-    </div>
-    <script>
-        function myFunction(div_id) {
-          var x = document.getElementById(div_id);
-          if (x.style.display === "none") {
-            x.style.display = "block";
-          } else {
-            x.style.display = "none";
-          }
-        }
-        </script>
+      <p>xadxa</p>
+    <img src="{{ url_for('images', filename= image1) }}" alt="{{image1}}" />
+    <img src="{{ url_for('images', filename= image2) }}" alt="{{image2}}" />
+    
   </body>
 </html>

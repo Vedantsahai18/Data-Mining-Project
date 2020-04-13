@@ -3,14 +3,17 @@ import os
 from flask import Flask, request, flash, redirect, render_template, url_for
 from werkzeug.utils import secure_filename
 
-from kmeans import elbow, parse, kmeans
+from modules.birch import train as bt
+from modules.dbscan import train as dbt
+from modules.optics import train as opt
+from modules.spectral_clustering import train as sct
+from modules.affinity_propagation import train as apt
 
-UPLOAD_FOLDER = 'csv'
+UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'csv'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 
 
 def allowed_file(filename):
@@ -21,17 +24,26 @@ def algo():
     if request.method == 'POST':
         filename = request.form['filename']
         if request.form['algorithm'] == "DB-SCAN":
-            chosen_algo=request.form['algorithm']
-            
-            return render_template('result.html', image1 = 'elbow.png')
-        elif request.form['algorithm'] == "kmean":
-            X = parse(filename, 3, 4)
-            elbow(X)
-            kmeans(X, n_clusters=5)
-            text = open('static\summary.txt', 'r+')
-            content = text.read()
-            text.close()
-            return render_template('result.html', image1 = 'elbow.png', image2 = 'kmeans_clusters.png',text=content)
+            print(('uploads/'+str( filename)))
+            print(dbt(('uploads/'+str( filename)),0.30) )    
+            return render_template('result.html', image1 = 'dbscan.png',image2='dbscan_unlabelled_data.png')
+        
+        # elif request.form['algorithm'] == "birch":
+        #     bt(('uploads/'+str(filename)),2)  
+        #     return render_template('result.html', image1 = 'birch.png', image2 = 'birch_unlabelled.png')
+        
+        # elif request.form['algorithm'] == "optics":
+        #     opt(('uploads/'+str(filename)),0.80)  
+        #     return render_template('result.html', image1 = 'optics.png', image2 = 'optics_unlabelled.png')
+        
+        # elif request.form['algorithm'] == "affprop":
+        #     apt(('uploads/'+str(filename)))
+        #     return render_template('result.html', image1 = 'affinity_propagation.png', image2 = 'affinity_propagation_unlabelled.png')
+        
+        # elif request.form['algorithm'] == "specclust":
+        #     sct(('uploads/'+str(filename)),2)  
+        #     return render_template('result.html', image1 = 'spectral_clustering.png', image2 = 'spectral_clustering_unlabelled.png')    
+        
         return 'Nothing Selected'
         
 
@@ -57,4 +69,4 @@ def upload_file():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

@@ -21,7 +21,7 @@ def preprocessor(df):
 def train(dataset,eps):
     data = pd.read_csv(dataset)
     data.fillna(method = 'ffill',inplace=True)
-    IMAGE_FOLDER = '..//images//'
+    IMAGE_FOLDER = 'images//'
     MODEL_FOLDER = 'models//'
 
     header = data.columns.values
@@ -55,9 +55,3 @@ def train(dataset,eps):
     data.to_csv('models//optics_labels.csv')
     return data,unlabelled_data,labelled_data
     
-
-DATA_FOLDER = '..//uploads'
-data,unlabelled,labelled = train(DATA_FOLDER+'//shady_customer_data.csv',eps=0.8)
-
-print('\n')
-# print(data)
