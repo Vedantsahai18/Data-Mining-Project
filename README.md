@@ -13,6 +13,7 @@ Algorithms inluded:
 To use this repo,first clone this repo and save it in any folder
 
 `git checkout backend`
+
 `python app.py`
 
 Open localhost:5000 in your browser
